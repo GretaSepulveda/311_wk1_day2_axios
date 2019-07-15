@@ -1,33 +1,39 @@
+// import axios here
 const axios = require('axios')
 const config = require('../config')
-console.log(config.API_KEY)
-// Please note that it is normally not considered best practice to commit 
-// api keys to github as it presents a security risk. It is done here only 
-// for practice purposes as we are sharing the same account
+
+// console.log(config.API_KEY)
 
 
 const discoverMovie = () => {
   const url = `https://api.themoviedb.org/3/discover/movie?api_key=${config.API_KEY}`
- axios.get(url)
- .then(function(response) {
-   return (response.data.results)
-})
-.catch(function(error) {
-  console.log(error)
-})
-.finally(function() {
-  }));
+  return axios(url)
+  .then(response => response) 
+  .catch(function(error) {
+    console.log(error)
+  })
+}
+discoverMovie()
+
+
 
 const getMovieById = (id) => {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${config.API_KEY}`
-  // code here
+  return axios(url)
+  .then(response => response.data) 
 }
+getMovieById()
+
+
 
 const getMovieByIdFailure = () => {
-  const fakeId = 1 // FAKE ID HERE
+  const fakeId = 5783
   const url = `https://api.themoviedb.org/3/movie/${fakeId}?api_key=${config.API_KEY}`
-  // code here
+  return axios(url)
+  .then(response => response.status)
+  .catch(err => err.response.status)
 }
+getMovieByIdFailure()
 
 
 
